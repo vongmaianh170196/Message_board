@@ -12,6 +12,7 @@ connectDb();
 //Define routes
 app.use('/api/channels', require('./routes/api/channels'));
 app.use('/api/messages', require('./routes/api/messages'));
+app.use('/api/user', require('./routes/api/user'));
 
 if (process.env.NODE_ENV === 'production') {
     // Set static folder
