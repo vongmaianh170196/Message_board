@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const {check, validationResult} = require('express-validator/check');
-const User = require('../../Models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const User = require('../../Models/User');
+const auth = require('../../middleware/auth');
 
 //Load existing user if already log in
 router.get('/auth', auth, async (req, res) => {
@@ -117,7 +118,7 @@ async (req, res) => {
         }
         jwt.sign(
             payload, 
-            config.get('jwtSecret'),
+            config.get('jwtsecret'),
             {expiresIn: 360000},
             (err, token) => {
                 if(err) return err;
