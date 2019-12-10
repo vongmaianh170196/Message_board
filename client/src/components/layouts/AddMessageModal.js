@@ -2,8 +2,9 @@ import React, {useState, useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 import { connect } from 'react-redux';
+import {postMessage} from '../../actions/message';
 
-const AddMessageModal = ({auth:{isAuthenticated}}) => {
+const AddMessageModal = ({auth:{isAuthenticated}, channel, postMessage}) => {
     
     const [modal, setModal] = useState(false);
     const [formData, setFormData] = useState({
@@ -14,7 +15,7 @@ const AddMessageModal = ({auth:{isAuthenticated}}) => {
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
     const onSubmit = async e => {
         e.preventDefault();
-        //await axios.post(`/api/messages/${id}`, formData);
+        postMessage(formData, channel._id);
         toggle();
     }
     const toggle = () => setModal(!modal);
@@ -27,18 +28,18 @@ const AddMessageModal = ({auth:{isAuthenticated}}) => {
                         <ModalHeader toggle={toggle}>Add a message</ModalHeader>
                         <ModalBody>
                             <form>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Title</label>
                                     <input type="text" className="form-control" onChange={e => onChange(e)} id="title" value={title} name="title" required/>
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Description</label>
                                     <textarea className="form-control" id="desc" onChange={e => onChange(e)} value={desc} name="desc" required ></textarea>
                                 </div>                              
                             </form>                
                         </ModalBody>
                         <ModalFooter>               
-                            <Button color="secondary" onClick={e => onSubmit(e)}>Save</Button>
+                            <Button color="secondary" onClick={e => onSubmit(e)}>Create</Button>
                             <Button color="secondary" onClick={toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
@@ -48,9 +49,12 @@ const AddMessageModal = ({auth:{isAuthenticated}}) => {
 
 AddMessageModal.propTypes = {
     auth: PropTypes.object.isRequired,
+    channel: PropTypes.object,
+    postMessage: PropTypes.func,
 }
 const mapStateToProp = state => ({
-    auth: state.auth
+    auth: state.auth,
+    channel: state.channel.channel
 })
 
-export default connect(mapStateToProp, null)(AddMessageModal)
+export default connect(mapStateToProp, {postMessage})(AddMessageModal)

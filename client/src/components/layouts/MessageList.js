@@ -7,7 +7,8 @@ import {getMessagesByChannel} from '../../actions/message';
 
 const MessageList = ({message:{messages} , channel, getMessagesByChannel}) => {
     const [messageItem, setMessageItem] = useState({});
-    const [itemClick, setClicked] = useState(false)
+    const [itemClick, setClicked] = useState(false);
+    
     useEffect(() => {
         getMessagesByChannel(channel._id)
     }, [getMessagesByChannel, channel])
@@ -19,7 +20,7 @@ const MessageList = ({message:{messages} , channel, getMessagesByChannel}) => {
                         <Fragment key={message._id}>
                             <p onClick={() => {
                                 setMessageItem(message);
-                                setClicked(true)
+                                setClicked(true);
                             }}>
                                 {message.title}
                             </p>
@@ -29,7 +30,7 @@ const MessageList = ({message:{messages} , channel, getMessagesByChannel}) => {
             </Col>
             {itemClick && 
             <Col className="col-6">                
-                <MessageItem message={messageItem}/>
+                <MessageItem message={messageItem} edit={false}/>
             </Col>}
         </Row>
     )
