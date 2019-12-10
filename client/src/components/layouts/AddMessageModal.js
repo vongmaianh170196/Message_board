@@ -10,7 +10,7 @@ const AddMessageModal = ({auth:{isAuthenticated}}) => {
         title: '',
         desc: ''
     });
-    
+    const {title, desc} = formData;
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
     const onSubmit = async e => {
         e.preventDefault();
@@ -22,22 +22,24 @@ const AddMessageModal = ({auth:{isAuthenticated}}) => {
     return (
             isAuthenticated 
             && <Fragment>
-                    <Button color="primary" onClick={toggle}>Add message</Button>
-                    <Modal isOpen={modal} toggle={toggle} >
-                        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                    <Button color="primary" onClick={toggle}>Start a discussion</Button>
+                    <Modal isOpen={modal} toggle={toggle} className="modal-lg">
+                        <ModalHeader toggle={toggle}>Add a message</ModalHeader>
                         <ModalBody>
-                            <form onSubmit={e => onSubmit(e)}>
-                                <label>Title</label>
-                                <input type="text" defaultValue="" onChange={e => onChange(e)} name="title"/>
-                                <br/>
-                                <label>Description</label>
-                                <input type="text" defaultValue="" onChange={e => onChange(e)} name="desc"/>
-                                <br/>
-                                <input type="submit" className="btn btn-primary my-1" />
+                            <form>
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" className="form-control" onChange={e => onChange(e)} id="title" value={title} name="title" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea className="form-control" id="desc" onChange={e => onChange(e)} value={desc} name="desc" required ></textarea>
+                                </div>                              
                             </form>                
                         </ModalBody>
                         <ModalFooter>               
-                        <Button color="secondary" onClick={toggle}>Cancel</Button>
+                            <Button color="secondary" onClick={e => onSubmit(e)}>Save</Button>
+                            <Button color="secondary" onClick={toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
                 </Fragment>

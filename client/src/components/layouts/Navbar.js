@@ -6,19 +6,30 @@ export const Navbar = () => {
     return (
         <div>
             <Nav vertical>
-            <NavItem>
-                <Link to="/">Home</Link>
-            </NavItem>
-            <NavItem>            
-                <Link to="/music">Music</Link>
-            </NavItem>
-            <NavItem>            
-                <Link to="/finance">Finance</Link>
-            </NavItem>
-            <NavItem>            
-                <Link to="/marketing">Marketing</Link>
-            </NavItem>
-            
+                <NavItem>
+                    <Link to="/">Home</Link>
+                </NavItem>
+                <NavItem>            
+                    <Link to="/dev">Dev</Link>
+                </NavItem>
+                <NavItem>            
+                    <Link to="/entertainment">Entertainment</Link>
+                </NavItem>
+                <NavItem>            
+                    <Link to="/finance">Finance</Link>
+                </NavItem>
+                <NavItem>            
+                    <Link to="/hr">HR</Link>
+                </NavItem>
+                <NavItem>            
+                    <Link to="/marketing">Marketing</Link>
+                </NavItem>
+                <NavItem>            
+                    <Link to="/onlinesale">Online sales</Link>
+                </NavItem>
+                <NavItem>            
+                    <Link to="/ux">UX</Link>
+                </NavItem>
             </Nav>
         </div>
     )

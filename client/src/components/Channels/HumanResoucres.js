@@ -5,11 +5,11 @@ import MessageList  from '../layouts/MessageList';
 import {getChannelByName} from '../../actions/channel';
 import AddMessageModal from '../layouts/AddMessageModal';
 
-const Music = ({channel:{channel, loading}, getChannelByName}) => {    
+const HumanResource = ({channel:{channel, loading}, getChannelByName}) => {    
     
     
     useEffect(() => {
-        getChannelByName('Music');  
+        getChannelByName('HR');  
     }, [getChannelByName]);
     
     return (
@@ -20,7 +20,7 @@ const Music = ({channel:{channel, loading}, getChannelByName}) => {
     );
 }
 
-Music.propTypes = {
+HumanResource.propTypes = {
     channel: PropTypes.object.isRequired,
     getChannelByName: PropTypes.func,
 } 
@@ -28,4 +28,4 @@ const mapStateToProp = state => ({
     channel: state.channel
 })
 
-export default connect(mapStateToProp, {getChannelByName})(Music);
+export default connect(mapStateToProp, {getChannelByName})(HumanResource);
