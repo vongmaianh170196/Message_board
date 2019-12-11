@@ -2,21 +2,29 @@ import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { login, register, logout } from '../../actions/auth';
+import defaultAvatar from '../../img/defaultAvatar.jpg';
 
-const Home = ({auth: {isAuthenticated, loading}, login, logout, register}) => {
+const Home = ({auth: {isAuthenticated, user}, login, logout, register}) => {
 
     const [formData, setFormData] = useState({
         username: '',
-        password:''
+        password:'',
+        avatar:''
     });
 
-    const {username, password} = formData;
+    const {username, password, avatar} = formData;
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
     const onSignIn = e => {
         e.preventDefault();
-        login({username, password});
+        if(avatar !== ''){
+            alert('You have already had an avatar')
+        }
+        else{            
+            login({username, password});
+            
+        }
     }
     const onSignUp = e => {
         e.preventDefault();
@@ -36,6 +44,10 @@ const Home = ({auth: {isAuthenticated, loading}, login, logout, register}) => {
                 <div className="form-group">
                     <label>Password</label>
                     <input type="password" className="form-control" id="password" onChange={e => onChange(e)} value={password} name="password"/>
+                </div>  
+                <div className="form-group">
+                    <label>Avatar</label>
+                    <input type="text" placeholder="Add avatar link..." className="form-control" id="avatar" onChange={e => onChange(e)} value={avatar} name="avatar"/>
                 </div>                
                 <div className="d-flex justify-content-center flex-row">
                     <button type="submit" className="btn btn-outline-primary mr-1" onClick={(e) => onSignIn(e)}>Sign in</button>
@@ -48,6 +60,8 @@ const Home = ({auth: {isAuthenticated, loading}, login, logout, register}) => {
     
     const auth = () => (
         <div className="d-flex justify-content-center">
+            <img className="avatar-main" src={user.avatar !== null ? user.avatar : defaultAvatar}/>
+            <p>{user.username}</p>
             <button type="button" className="btn btn-outline-primary mr-1" onClick={(e) => onLogout(e)}>Sign out</button>
         </div>
     )
@@ -55,7 +69,7 @@ const Home = ({auth: {isAuthenticated, loading}, login, logout, register}) => {
     return (
         <Fragment>
             <h1 className="text-center">Welcome to Message Board</h1>
-           {isAuthenticated ? auth() : guest()}            
+           {isAuthenticated && user !== null ? auth() : guest()}            
         </Fragment>
     )
 }

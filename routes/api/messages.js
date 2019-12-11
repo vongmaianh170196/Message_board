@@ -6,6 +6,7 @@ const Message = require('../../Models/Message');
 const Channel = require('../../Models/Channel');
 const User = require('../../Models/User');
 
+
 //Post message with channel_id
 router.post('/:channel_id', [auth, [
     check('title', 'Title cannot be empty').not().isEmpty(),    
@@ -121,7 +122,18 @@ router.delete('/replies/:message_id/:reply_id', auth,async (req, res) => {
         res.status(500).send('Server error')
     }
 });
-
+//Get all messages
+router.get('/', async (req, res) => {
+    try {
+        const messages = await Message.find().limit(10);
+        if(!messages) return res.status(400).json({msg: 'There is not any messages yet'});
+        
+        res.json(messages)
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send('Server error')
+    }
+})
 //Get all messages with channel_id
 router.get('/:channel_id', async (req, res) => {
     try {

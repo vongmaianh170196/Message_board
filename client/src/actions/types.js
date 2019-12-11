@@ -8,6 +8,7 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const USER_ERROR = 'USER_ERROR';
 
+export const GET_ALLMESSAGES = 'GET_ALLMESSAGES';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const GET_MESSAGE = 'GET_MESSAGE';
 export const POST_MESSAGE = 'POST_MESSAGE';

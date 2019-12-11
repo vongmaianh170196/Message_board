@@ -1,4 +1,4 @@
-import { GET_MESSAGES, POST_MESSAGE, EDIT_MESSAGE, DELETE_MESSAGE, POST_REPLY, DELETE_REPLY, MESSAGE_ERROR, GET_MESSAGE } from '../actions/types';
+import { GET_MESSAGES, POST_MESSAGE, EDIT_MESSAGE, DELETE_MESSAGE, POST_REPLY, DELETE_REPLY, MESSAGE_ERROR, GET_MESSAGE, GET_ALLMESSAGES } from '../actions/types';
 
 const initialState = {
     messages: [],
@@ -12,6 +12,7 @@ export default function(state = initialState, action){
 
     switch(type){
         case GET_MESSAGES:
+        case GET_ALLMESSAGES:
             return {
                 ...state,
                 messages: payload,

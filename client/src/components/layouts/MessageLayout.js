@@ -10,13 +10,16 @@ import Dev from '../Channels/Dev';
 import HumanResoucres from '../Channels/HumanResoucres';
 import OnlineSales from '../Channels/OnlineSales';
 import Ux from '../Channels/Ux';
+import Dashboard from '../Channels/Dashboard';
+import MessageItem from '../message/MessageItem';
 
 const MessageLayout = ({channel: {loading}}) => {
     
     return (
             <Fragment>
                 <Switch>     
-                    <Route exact path='/' component={Home}/>  
+                    <Route exact path='/' component={Home}/> 
+                    <Route exact path='/messages'component={Dashboard}/> 
                     <Route exact path='/dev' component={Dev}/>
                     <Route exact path='/entertainment' component={Entertainment}/>      
                     <Route exact path='/finance' component={Finance}/>
@@ -24,6 +27,8 @@ const MessageLayout = ({channel: {loading}}) => {
                     <Route exact path='/marketing' component={Marketing}/>
                     <Route exact path='/onlinesale' component={OnlineSales}/>
                     <Route exact path='/ux' component={Ux}/>
+
+                    <Route exact path='/messages/:id' component={MessageItem}/>
                 </Switch>           
             </Fragment>
     )

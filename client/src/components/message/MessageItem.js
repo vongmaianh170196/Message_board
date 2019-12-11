@@ -85,6 +85,7 @@ const MessageItem = ({
     const onSaveReply = (e) => {
         e.preventDefault();
         addReply(reply, message._id)
+        setReply("");
     }
 
     return (

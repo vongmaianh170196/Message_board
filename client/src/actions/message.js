@@ -1,6 +1,21 @@
-import { GET_MESSAGES, MESSAGE_ERROR, POST_MESSAGE, EDIT_MESSAGE, DELETE_MESSAGE, POST_REPLY, DELETE_REPLY, GET_MESSAGE } from './types';
+import { GET_MESSAGES, MESSAGE_ERROR, POST_MESSAGE, EDIT_MESSAGE, DELETE_MESSAGE, POST_REPLY, DELETE_REPLY, GET_MESSAGE, GET_ALLMESSAGES } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
+
+export const getAllMessages = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/messages');
+        dispatch({
+            type: GET_ALLMESSAGES,
+            payload: res.data
+        })
+    } catch (error) {
+        dispatch({
+            type: MESSAGE_ERROR,
+            payload: error
+        })
+    }
+}
 
 export const getMessagesByChannel = (id) => async dispatch => {
     try {

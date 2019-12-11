@@ -7,6 +7,7 @@ export const loaduser =  () => async dispatch => {
     if(localStorage.token){
         setAuthToken(localStorage.token)       
     }
+    console.log(localStorage.token)
     try {
         const res = await axios.get('/api/user/auth');
         dispatch({
@@ -20,14 +21,14 @@ export const loaduser =  () => async dispatch => {
     }
 }
 
-export const register = ({username, password}) => async dispatch => {
+export const register = ({username, password, avatar}) => async dispatch => {
     const config = {
         headers:{
             'Content-type': 'application/json'
         }
     }
 
-    const body = JSON.stringify({username, password});
+    const body = JSON.stringify({username, password, avatar});
 
     try {
         const res = await axios.post('/api/user/register', body, config);
@@ -70,7 +71,8 @@ export const login = ({username, password}) => async dispatch => {
             errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
         }
         dispatch({
-            type:USER_ERROR
+            type: USER_ERROR,
+            payload: error
         })
     }
 }
