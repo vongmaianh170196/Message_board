@@ -2,7 +2,7 @@ import React, {useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import AddMessageModal from '../layouts/AddMessageModal';
-import MessageList  from '../layouts/MessageList';
+import MessageList  from '../message/MessageList';
 import {getChannelByName} from '../../actions/channel';
 
 const Marketing = ({channel:{channel, loading}, getChannelByName}) => {       

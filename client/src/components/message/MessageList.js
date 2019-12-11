@@ -3,24 +3,32 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Col, Row} from 'reactstrap';
 import MessageItem from './MessageItem';
-import {getMessagesByChannel} from '../../actions/message';
+import {getMessagesByChannel, getMessage} from '../../actions/message';
 
-const MessageList = ({message:{messages} , channel, getMessagesByChannel}) => {
+const MessageList = ({message:{messages} , channel, getMessagesByChannel, getMessage}) => {
     const [messageItem, setMessageItem] = useState({});
     const [itemClick, setClicked] = useState(false);
+    const [editable, setEditable] = useState(false);
     
     useEffect(() => {
         getMessagesByChannel(channel._id)
     }, [getMessagesByChannel, channel])
+
+    const updateEditable = (editable) => {
+        setEditable(editable)
+    }
 
     return (
         <Row>
             <Col className="col-4">
                 {messages.map(message => 
                         <Fragment key={message._id}>
-                            <p onClick={() => {
+                            <p onClick={(e) => {
+                                e.preventDefault();
                                 setMessageItem(message);
                                 setClicked(true);
+                                editable && setEditable(false);
+                                getMessage(channel._id, message._id);
                             }}>
                                 {message.title}
                             </p>
@@ -28,10 +36,13 @@ const MessageList = ({message:{messages} , channel, getMessagesByChannel}) => {
                     )
                 }
             </Col>
-            {itemClick && 
-            <Col className="col-6">                
-                <MessageItem message={messageItem} edit={false}/>
-            </Col>}
+            {
+            messages.length <= 0 ? <p>There is no discussion created in this channel yet</p> : 
+                itemClick && 
+                <Col className="col-6">                
+                    <MessageItem editable={editable} updateEditable={updateEditable}/>
+                </Col>
+            }
         </Row>
     )
 }
@@ -40,9 +51,10 @@ MessageList.propTypes = {
     message: PropTypes.object.isRequired,
     getMessagesByChannel: PropTypes.func,
     channel: PropTypes.object,
+    getMessage: PropTypes.func,
 }
 const mapStateToProps = state => ({
     message: state.message
 })
 
-export default connect(mapStateToProps, {getMessagesByChannel})(MessageList)
+export default connect(mapStateToProps, {getMessagesByChannel, getMessage})(MessageList)

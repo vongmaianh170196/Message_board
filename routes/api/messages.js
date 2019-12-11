@@ -30,8 +30,9 @@ router.post('/:channel_id', [auth, [
     }
 });
 
+
 //Update message
-router.put('/:message_id', [auth, [
+router.put('/:channel_id/:message_id', [auth, [
     check('title', 'Title cannot be empty').not().isEmpty(),    
     check('desc', 'Description cannot be empty').not().isEmpty()
 ]],async (req, res) => {
@@ -44,7 +45,7 @@ router.put('/:message_id', [auth, [
         if(!message) return res.status(400).json({msg: 'Message cannot be found'});
         if(message.user != req.user.id) return res.status(400).json({msg: "You do not have the right to edit this message"})
         message = await Message.findOneAndUpdate(
-            {channel:req.params.channel_id},
+            {_id:req.params.message_id},
             {$set: {
                     "title": req.body.title,
                     "desc": req.body.desc
@@ -98,22 +99,18 @@ router.post('/replies/:message_id', [auth, [
 });
 
 //Delete reply
-router.delete('/replies/:message_id/:reply_id', [auth, [
-    check('text', 'Text cannot be empty').not().isEmpty()
-]],async (req, res) => {
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({error: errors.array()});
-    }
+router.delete('/replies/:message_id/:reply_id', auth,async (req, res) => {
+    
     try {
         let message = await Message.findById(req.params.message_id);
 
-        const reply = message.replies.find(rep => rep._id === req.params.reply_id);
-        if(!reply) return res.status(404).json({msg: "Reply not found"});
+        const reply = message.replies.map(rep => rep._id).indexOf(req.params.reply_id);
+        if(reply < 0) return res.status(404).json({msg: "Reply not found"});
         //Check user
-        const user = User.findById(req.user.id).select('-password')
-        if(reply.username.toString() !== user.username) return res.status(401).json({mesg: "You do not have the right to delete this reply"});
-
+        const user = await User.findById(req.user.id).select('-password')
+        
+        if(message.replies[reply].username.toString() !== user.username) return res.status(401).json({mesg: "You do not have the right to delete this reply"});
+        
         //Remove reply
         const removeIndex = message.replies.map(rep => rep.username).indexOf(req.params.reply_id);
         message.replies.splice(removeIndex, 1);

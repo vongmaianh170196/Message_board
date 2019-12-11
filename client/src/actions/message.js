@@ -1,4 +1,4 @@
-import { GET_MESSAGES, MESSAGE_ERROR, POST_MESSAGE, EDIT_MESSAGE, DELETE_MESSAGE, POST_REPLY, DELETE_REPLY } from './types';
+import { GET_MESSAGES, MESSAGE_ERROR, POST_MESSAGE, EDIT_MESSAGE, DELETE_MESSAGE, POST_REPLY, DELETE_REPLY, GET_MESSAGE } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
 
@@ -58,7 +58,7 @@ export const postMessage = ({title, desc}, channel_id) => async dispatch => {
 }
 
 //Update message
-export const updateMessage = ({title, desc}, message_id) => async dispatch => {
+export const updateMessage = ({title, desc}, channel_id, message_id) => async dispatch => {
     const config = {
         headers:{
             'Content-type': 'application/json'
@@ -68,11 +68,13 @@ export const updateMessage = ({title, desc}, message_id) => async dispatch => {
     const body = JSON.stringify({title, desc});
 
     try {
-        const res = await axios.put(`/api/messages/${message_id}`, body, config);
+        const res = await axios.put(`/api/messages/${channel_id}/${message_id}`, body, config);
+
         dispatch({
             type: EDIT_MESSAGE,
             payload: res.data
-        })
+        });
+        dispatch(getMessagesByChannel(channel_id))
         dispatch(setAlert('Message is editted', 'success'))
     } catch (error) {
         const errors = error.response.data.errors;
@@ -103,7 +105,22 @@ export const deleteMessage = (message_id) => async dispatch => {
         })
     }
 }
-
+//GET_MESSAGE
+export const getMessage = (channel_id, message_id) => async dispatch =>{
+    try {
+        const res = await axios.get(`/api/messages/${channel_id}/${message_id}`);
+        dispatch({
+            type: GET_MESSAGE,
+            payload: res.data
+        })    
+        
+    } catch (error) {
+        dispatch({
+            type: MESSAGE_ERROR,
+            payload: error
+        })
+    }
+} 
 //Post reply
 export const addReply = (text, message_id) => async dispatch => {
     const config = {
@@ -111,8 +128,9 @@ export const addReply = (text, message_id) => async dispatch => {
             'Content-type': 'application/json'
         }
     }
+    
     try {
-        const res = await axios.post(`/api/messages/replies/${message_id}`, text, config);
+        const res = await axios.post(`/api/messages/replies/${message_id}`, JSON.stringify({text: text}), config);
         dispatch({
             type: POST_REPLY,
             payload: res.data
