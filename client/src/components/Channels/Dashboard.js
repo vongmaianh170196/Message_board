@@ -10,13 +10,15 @@ const Dashboard = ({messages, getAllMessages, getMessage}) => {
     },[getAllMessages])
     return (
         <Fragment>
-            {messages.length > 0 && messages.map(mess => <div key={mess._id}>
-                <p className="message-title" onClick={(e) => {
-                    e.preventDefault();
-                    getMessage(mess.channel, mess._id);
-                }}><Link to={`/messages/${mess._id}`}>{mess.title}</Link></p>
-                <p className="message-desc">{mess.desc}</p>
-            </div>)}
+            {messages.length > 0 && messages.map(mess => 
+                <div className="message-list-item" key={mess._id}>                    
+                    <p className="message-title clickable" onClick={(e) => {
+                        e.preventDefault();
+                        getMessage(mess.channel, mess._id);
+                    }}><Link to={`/messages/${mess._id}`}><i className="fas fa-envelope-open-text"></i> {mess.title}</Link></p>
+                    <p className="message-desc">{mess.desc}</p>
+                </div>)
+            }
         </Fragment>
     )
 }

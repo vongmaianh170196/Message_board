@@ -7,14 +7,14 @@ import defaultAvatar from '../../img/defaultAvatar.jpg';
 
 const Header = ({auth: {isAuthenticated, user}}) => {
     return (
-        <Row className="header px-2 py-2 d-flex flex-row">
-            <div>
+        <Row className="header">
+            <div className="logo">
                 <Link to='/messages'><i className="fas fa-comments"></i></Link>
             </div>
-            <div>
+            <div className="header-username">
                 {isAuthenticated && user !== null? 
-                    <Link to='/'><img alt="user-icon" className="header-img" src={user.avatar !== '' ? user.avatar : defaultAvatar}/>Hello {user.username}!</Link>
-                    :  <Link to='/'><img alt="user-icon" className="header-img" src={defaultAvatar}/>Hello there!</Link>
+                    <Link to='/'><img alt="user-icon" className="header-img" src={user.avatar !== '' ? user.avatar : defaultAvatar}/><span> Hello {user.username}!</span></Link>
+                    :  <Link to='/'><img alt="user-icon" className="header-img" src={defaultAvatar}/><span> Hello there!</span> </Link>
                 }
             </div>
         </Row>

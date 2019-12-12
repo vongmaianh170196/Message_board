@@ -49,9 +49,12 @@ const Home = ({auth: {isAuthenticated, user}, login, logout, register}) => {
                     <label>Avatar</label>
                     <input type="text" placeholder="Add avatar link..." className="form-control" id="avatar" onChange={e => onChange(e)} value={avatar} name="avatar"/>
                 </div>                
-                <div className="d-flex justify-content-center flex-row">
-                    <button type="submit" className="btn btn-outline-primary mr-1" onClick={(e) => onSignIn(e)}>Sign in</button>
-                    <button type="submit" className="btn btn-outline-primary ml-1" onClick={(e) => onSignUp(e)}>Sign up</button>
+                <div className="guest-btn-section d-flex justify-content-center flex-column">
+                    <button type="submit" className="btn btn-positive" onClick={(e) => onSignUp(e)}>Sign up</button>
+                    <p className="sign-in-btn-section">
+                        <span>Already have an account? Click </span>
+                        <span className="sign-in-btn clickable" onClick={(e) => onSignIn(e)}>Sign in</span>
+                    </p>
                 </div>
             </form>
             
@@ -60,7 +63,7 @@ const Home = ({auth: {isAuthenticated, user}, login, logout, register}) => {
     
     const auth = () => (
         <div className="d-flex justify-content-center">
-            <img className="avatar-main" src={user.avatar !== null ? user.avatar : defaultAvatar}/>
+            <img className="avatar-main" alt="avatar" src={user.avatar !== null ? user.avatar : defaultAvatar}/>
             <p>{user.username}</p>
             <button type="button" className="btn btn-outline-primary mr-1" onClick={(e) => onLogout(e)}>Sign out</button>
         </div>
@@ -68,7 +71,7 @@ const Home = ({auth: {isAuthenticated, user}, login, logout, register}) => {
 
     return (
         <Fragment>
-            <h1 className="text-center">Welcome to Message Board</h1>
+            <h1 className="text-center welcome-text">Welcome to Message Board</h1>
            {isAuthenticated && user !== null ? auth() : guest()}            
         </Fragment>
     )

@@ -1,9 +1,132 @@
+/*General*/
+body{
+  background-color: #f8ecf2;
+}
+.message-layout{
+  padding-left: 2em;
+}
+a, a:hover, a:visited{
+  text-decoration: none;
+  cursor: pointer
+}
+.clickable{
+  cursor: pointer;
+}
+.btn-positive, .btn-positive:hover{
+  background-color: green;
+  color: #f8ecf2;
+  font-size: 12pt;
+  padding: 0.5em 1em;
+  font-weight: bold;
+  width: fit-content;
+}
+.message-title a{
+  color: #4d1933;
+  font-weight: 600;
+}
+.message-desc{
+  padding-left: 2em;
+  border-left: 1px solid #4d1933;
+}
+/*Icons*/
+.fa-envelope-open-text{
+  color: #4d1933;
+}
 /*Header*/
-.header-img{
-  width: 3em;
+.header{
+  background-color: #862d59;
+  padding: 1rem 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+.logo .fas{
+  font-size: 2.5em;
+  color: #f8ecf2;
 }
 
+.header-username span{
+  color: #f8ecf2;
+  font-size: 1em;
+  font-weight: bold;
+}
+.header-img{
+  width: 3em;
+  height: 2.5em;
+  border: 1px solid black;
+}
+/*Container*/
+.container-custom{
+  height: 80vh;
+}
+.main-content{
+  margin: 2rem 1rem;
+}
+
+/*Nav*/
+.nav_item_home{
+  margin-top: 0em ;
+}
+.nav_item {
+  margin: 1em 1em 0em 0em;
+  border-bottom: 1px solid #db8ab4;
+  padding-bottom: 1em;
+}
+.nav_item--active{
+  border-bottom: 1px solid #4d1933;
+}
+.nav-custom a.nav_item{
+  color: #4d1933;
+  font-weight: 500;
+  font-size: 13pt;
+}
 /*Home*/
+.welcome-text{
+  color:#4d1933;
+}
 .avatar-main{
   width: 5em;
+}
+.guest-btn-section{
+  align-items: center;
+}
+.sign-in-btn-section{
+  text-align: center;
+  font-size: 12pt;
+  font-weight: bold;
+  margin-top: 1em;
+}
+.sign-in-btn{
+  font-size: 12pt;
+  font-weight: bold;
+  color: green;
+  text-decoration: underline;
+}
+/*Dashboard */
+.message-list-item{
+  height: 10vh;
+  border-right: 1px solid #4d1933;
+  border-radius: .25em;
+  border-bottom: 1px solid #4d1933;
+  text-overflow: ellipsis;
+  padding: 0em 1.5em 0.5em 1em;
+  margin-bottom: 1em;
+}
+.message-list-item .message-desc{
+  padding-left: 2em;
+  border-left: 1px solid #4d1933;
+}
+
+/*Footer*/
+.footer{
+  border-top: 1px solid lightpink;
+  justify-content: center;
+  padding: 1.5em 0em;
+  margin:0.5em 15em 0em 15em;
+  color: #4d1933;
+  font-weight: bold;
+}
+.footer span, .footer a{  
+  color: #4d1933;
 }

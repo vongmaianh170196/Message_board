@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {Container, Row, Col} from 'reactstrap';
@@ -25,10 +26,10 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Header/>
-        <Container fluid className="full-height h-100 bg-light">
-          <Row className="h-100 justify-content-center full-height bg-light py-4 mx-3">
+        <Container fluid className="container-custom">
+          <Row className="justify-content-center h-100 main-content">
               <Col className="col-1"> <Navbar/></Col>
-              <Col className="col-11">
+              <Col className="col-11 message-layout">
                 <Alert/>     
                 <Route component={MessageLayout}/>
               </Col>

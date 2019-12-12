@@ -6,7 +6,7 @@ import MessageItem from './MessageItem';
 import {getMessagesByChannel, getMessage} from '../../actions/message';
 
 const MessageList = ({message:{messages} , channel, getMessagesByChannel, getMessage}) => {
-    const [messageItem, setMessageItem] = useState({});
+   
     const [itemClick, setClicked] = useState(false);
     const [editable, setEditable] = useState(false);
     
@@ -25,7 +25,6 @@ const MessageList = ({message:{messages} , channel, getMessagesByChannel, getMes
                         <Fragment key={message._id}>
                             <p onClick={(e) => {
                                 e.preventDefault();
-                                setMessageItem(message);
                                 setClicked(true);
                                 editable && setEditable(false);
                                 getMessage(channel._id, message._id);
