@@ -23,13 +23,13 @@ const MessageList = ({message:{messages} , channel, getMessagesByChannel, getMes
             <Col className="col-4">
                 {messages.map(message => 
                         <Fragment key={message._id}>
-                            <p onClick={(e) => {
+                            <p className="message-title clickable" onClick={(e) => {
                                 e.preventDefault();
                                 setClicked(true);
                                 editable && setEditable(false);
                                 getMessage(channel._id, message._id);
                             }}>
-                                {message.title}
+                                <i className="fas fa-envelope-open-text"></i> {message.title}
                             </p>
                         </Fragment>
                     )

@@ -17,6 +17,10 @@ const MessageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    postby:{
+        type:String,
+        required: true
+    },
     replies:[{
         username: {
             type: String,

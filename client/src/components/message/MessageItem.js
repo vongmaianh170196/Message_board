@@ -31,37 +31,39 @@ const MessageItem = ({
     const {title, desc} = formData;
 
     const messageContent = () => (
-        <div>
-            <p>{title}</p>
-            <p>{desc}</p>
+        <div className="non-editable-message">
+            <p className="message-title">{title}</p>
+            <p className="message-desc">{desc}</p>
             {isAuthenticated && user._id === message.user && 
-                <div>                    
-                    <button type="button" className="btn btn-light" onClick={() => updateEditable(true)}>Edit</button>
-                    <button type="button" className="btn btn-danger" onClick={(e) => onDelete(e)}>Delete</button>
+                <div className="auth-message-btns">                    
+                    <button type="button" className="btn btn-neutral" onClick={() => updateEditable(true)}>Edit</button>
+                    <button type="button" className="btn btn-negative" onClick={(e) => onDelete(e)}>Delete</button>
                 </div>                
             }
         </div>
     );
 
     const editMessage = () => (
-        <form>
+        <form className="editable-message">
             <div className="form-group">
-                <input type="text" className="form-control font-weight-bold" id="title" onChange={(e) => onChange(e)} defaultValue={title} name="title"/>
+                <input type="text" placeholder="Title" className="form-control message-item-title" id="title" onChange={(e) => onChange(e)} defaultValue={title} name="title"/>
             </div>
             <div className="form-group">
-                <textarea className="form-control" id="desc" defaultValue={desc} name="desc" onChange={(e) => onChange(e)}></textarea>
-            </div>            
-            <button type="submit" className="btn btn-primary" onClick={(e) => onSave(e)}>Save</button>
-            <button type="submit" className="btn btn-primary" onClick={() => updateEditable(false)}>Cancel</button>
+                <textarea placeholder="Description..." className="form-control message-item-desc" id="desc" defaultValue={desc} name="desc" onChange={(e) => onChange(e)}></textarea>
+            </div>  
+            <div className="auth-message-btns">           
+                <button type="submit" className="btn btn-positive" onClick={(e) => onSave(e)}>Save</button>
+                <button type="submit" className="btn btn-neutral" onClick={() => updateEditable(false)}>Cancel</button>
+            </div>
         </form>
     )
 
     const replyForm = () => (
-        <form>
+        <form className="reply-form">
             <div className="form-group">
                 <textarea placeholder="Write a reply..." className="form-control" id="text" defaultValue="" name="text" onChange={(e) => onChangeReply(e)}></textarea>
             </div>            
-            <button type="submit" className="btn btn-primary" onClick={(e) => onSaveReply(e)}>Add</button>
+            <button type="submit" className="btn btn-positive" onClick={(e) => onSaveReply(e)}>Add</button>
         </form>
     )
 
@@ -93,12 +95,19 @@ const MessageItem = ({
             {!message ? <p>No message is selected</p> :
                 <Fragment>
                     {!editable? messageContent() : editMessage()}
-                    <Fragment>
-                        {isAuthenticated && replyForm()}
-                    </Fragment> 
-                    <Fragment>
-                        {message.replies != null && message.replies.length > 0 ? message.replies.map(rep => <Reply reply={rep} key={rep._id}/>): ''}
-                    </Fragment>                 
+                    <small>{message.replies == null ? "0" : message.replies.length} Replies</small>
+                    <br/>
+                    <small>Posted by @{message.postby !== "" ? message.postby : "Company"}</small>
+                    <div className="reply-section">
+                        <Fragment>
+                            {isAuthenticated && !editable && replyForm()}
+                        </Fragment> 
+                        <Fragment>
+                            <div className="reply-list">
+                                {message.replies != null && message.replies.length > 0 ? message.replies.map(rep => <Reply reply={rep} key={rep._id}/>): ''}
+                            </div>
+                        </Fragment>   
+                    </div>              
                 </Fragment>                    
             }
         </Fragment>

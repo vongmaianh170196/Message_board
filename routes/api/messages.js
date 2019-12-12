@@ -17,11 +17,13 @@ router.post('/:channel_id', [auth, [
         return res.status(400).json({error: errors.array()});
     }
     try {
+        const user = await User.findById(req.user.id);
         const message = new Message({
             channel: req.params.channel_id,
             user: req.user.id,
             title: req.body.title,
-            desc: req.body.desc
+            desc: req.body.desc,
+            postby: user.username
         })
         await message.save();
         res.json(message);

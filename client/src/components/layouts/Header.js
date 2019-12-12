@@ -6,6 +6,7 @@ import {Row} from 'reactstrap';
 import defaultAvatar from '../../img/defaultAvatar.jpg';
 
 const Header = ({auth: {isAuthenticated, user}}) => {
+    const avatar = user === null ?  defaultAvatar : user.avatar === null ?  defaultAvatar  : user.avatar;
     return (
         <Row className="header">
             <div className="logo">
@@ -13,8 +14,8 @@ const Header = ({auth: {isAuthenticated, user}}) => {
             </div>
             <div className="header-username">
                 {isAuthenticated && user !== null? 
-                    <Link to='/'><img alt="user-icon" className="header-img" src={user.avatar !== '' ? user.avatar : defaultAvatar}/><span> Hello {user.username}!</span></Link>
-                    :  <Link to='/'><img alt="user-icon" className="header-img" src={defaultAvatar}/><span> Hello there!</span> </Link>
+                    <Link to='/'><img alt="user-icon" className="header-img" src={avatar}/><span> Hello {user.username}!</span></Link>
+                    :  <Link to='/'><img alt="user-icon" className="header-img" src={avatar}/><span> Hello there!</span> </Link>
                 }
             </div>
         </Row>

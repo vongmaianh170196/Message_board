@@ -5,10 +5,13 @@ import {deleteReply} from '../../actions/message';
 
 const Reply = ({reply, auth:{isAuthenticated, user}, message, deleteReply}) => {
     return (
-        <div>
-            <p>{reply.username}</p>
-            <p>{reply.text}</p>
-            {isAuthenticated && user.username === reply.username ? <p onClick={() => deleteReply(message._id, reply._id)}>Delete</p> : <p>{''}</p>}
+        <div className="reply-item">
+            <p className="reply-username">@{reply.username}</p>
+            <div className="reply-text-section">
+                <p className="reply-text">{reply.text}</p>
+                {isAuthenticated && user.username === reply.username ? <p className="clickable reply-del" onClick={() => deleteReply(message._id, reply._id)}><i className="fa fa-trash"></i></p> : <p>{''}</p>}
+            </div>
+            
         </div>
     )
 }

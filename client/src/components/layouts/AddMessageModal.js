@@ -23,7 +23,7 @@ const AddMessageModal = ({auth:{isAuthenticated}, channel, postMessage}) => {
     return (
             isAuthenticated 
             && <Fragment>
-                    <Button color="primary" onClick={toggle}>Start a discussion</Button>
+                    <Button className="btn btn-positive mb-3" onClick={toggle}>Start a discussion</Button>
                     <Modal isOpen={modal} toggle={toggle} className="modal-lg">
                         <ModalHeader toggle={toggle}>Add a message</ModalHeader>
                         <ModalBody>
@@ -39,8 +39,8 @@ const AddMessageModal = ({auth:{isAuthenticated}, channel, postMessage}) => {
                             </form>                
                         </ModalBody>
                         <ModalFooter>               
-                            <Button color="secondary" onClick={e => onSubmit(e)}>Create</Button>
-                            <Button color="secondary" onClick={toggle}>Cancel</Button>
+                            <Button className="btn-positive" onClick={e => onSubmit(e)}>Create</Button>
+                            <Button className="btn-neutral" onClick={toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
                 </Fragment>

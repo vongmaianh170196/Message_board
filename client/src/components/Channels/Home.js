@@ -6,6 +6,7 @@ import defaultAvatar from '../../img/defaultAvatar.jpg';
 
 const Home = ({auth: {isAuthenticated, user}, login, logout, register}) => {
 
+    const avatarImage = user === null ?  defaultAvatar : user.avatar === null || user.avatar === "" ?  defaultAvatar  : user.avatar;
     const [formData, setFormData] = useState({
         username: '',
         password:'',
@@ -28,7 +29,7 @@ const Home = ({auth: {isAuthenticated, user}, login, logout, register}) => {
     }
     const onSignUp = e => {
         e.preventDefault();
-        register({username, password});
+        register({username, password, avatar});
     }
     const onLogout = e => {
         e.preventDefault();
@@ -62,10 +63,10 @@ const Home = ({auth: {isAuthenticated, user}, login, logout, register}) => {
     );
     
     const auth = () => (
-        <div className="d-flex justify-content-center">
-            <img className="avatar-main" alt="avatar" src={user.avatar !== null ? user.avatar : defaultAvatar}/>
-            <p>{user.username}</p>
-            <button type="button" className="btn btn-outline-primary mr-1" onClick={(e) => onLogout(e)}>Sign out</button>
+        <div className="d-flex justify-content-center flex-column auth-section">
+            <img className="avatar-main" alt="avatar" src={avatarImage}/>
+            <p className="welcome-username">{user.username}</p>
+            <button type="button" className="btn btn-neutral" onClick={(e) => onLogout(e)}>Sign out</button>
         </div>
     )
 
