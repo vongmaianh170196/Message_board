@@ -9,4 +9,4 @@
 `npm run server`
 #### For whole application testing localhost:3000
 `npm run dev`
-### Demo (if it is still up and running) : https://https://message-board-mern.herokuapp.com/
+### Demo (if it is still up and running) : https://message-board-mern.herokuapp.com/
