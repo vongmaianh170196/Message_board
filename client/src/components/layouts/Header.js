@@ -6,7 +6,7 @@ import {Row} from 'reactstrap';
 import defaultAvatar from '../../img/defaultAvatar.jpg';
 
 const Header = ({auth: {isAuthenticated, user}}) => {
-    const avatar = user === null ?  defaultAvatar : user.avatar === null ?  defaultAvatar  : user.avatar;
+    const avatar = user === null ?  defaultAvatar : user.avatar === null || user.avatar === "" ?  defaultAvatar  : user.avatar;
     return (
         <Row className="header">
             <div className="logo">
