@@ -1,4 +1,4 @@
 {
-    "uri": "mongodb+srv://<username>:<password>@messageboard-00abj.mongodb.net/test?retryWrites=true&w=majority",
+    "uri": "mongodb+srv://admin:Victory171@messageboard-00abj.mongodb.net/test?retryWrites=true&w=majority",
     "jwtsecret": "myjwt"
 }
