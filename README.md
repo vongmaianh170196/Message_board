@@ -10,3 +10,7 @@
 #### For whole application testing localhost:3000
 `npm run dev`
 ### Demo (if it is still up and running) : https://message-board-mern.herokuapp.com/
+
+username: test123
+
+password: Testuser123
